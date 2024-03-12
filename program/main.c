@@ -428,7 +428,7 @@ int main()
         strcat(buffer_bis, buffer);
         gfx_drawPixelString(20, 20, buffer_bis, 7);
         // The ores per second
-        strcpy(buffer_bis, "opc");
+        strcpy(buffer_bis, "cpc");
         prepare_to_write(buffer, cookies_per_second);
         strcat(buffer_bis, buffer);
         gfx_drawPixelString(20, 60, buffer_bis, 7);
