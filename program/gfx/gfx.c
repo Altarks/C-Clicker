@@ -314,6 +314,13 @@ Code above added in Version gfx3
 /*********************************
 Code below added by Hugo Marty
 **********************************/
+
+/// @brief Convertit un caractère de la police 5x5 en pixels
+/// @param x position x
+/// @param y position y
+/// @param x_offset décalage en x
+/// @param size taille de la police
+/// @param font caractère de la police 5x5
 void font_to_pixel(int x, int y, float x_offset, int size, int font[5][5])
 {
 	for (int j = 0; j < 5; j++)
@@ -328,6 +335,11 @@ void font_to_pixel(int x, int y, float x_offset, int size, int font[5][5])
 	}
 }
 
+/// @brief Écrit un chaine de caractères à l'écran à l'aide de pixels
+/// @param x position x
+/// @param y position y
+/// @param string chaine de caractères
+/// @param size taille de la police
 void gfx_drawPixelString(int x, int y, char* string, int size)
 {
 	float x_offset = 0;
@@ -649,17 +661,27 @@ void gfx_drawPixelString(int x, int y, char* string, int size)
 	}
 }
 
-void gfx_full_circle(int c_column, int c_row, int r, int color)
+/// @brief Déssine un cercle
+/// @param x position x
+/// @param y position y
+/// @param r rayon
+/// @param color couleur
+void gfx_full_circle(int x, int y, int r, int color)
 {
 	XSetForeground(gfx_display, gfx_gc, color);
-	XFillArc(gfx_display, gfx_window, gfx_gc, c_column-r, c_row-r, r*2, r*2, 0, 360*64);
+	XFillArc(gfx_display, gfx_window, gfx_gc, x-r, y-r, r*2, r*2, 0, 360*64);
 }
 
+/// @brief Donne la couleur d'un pixel
+/// @param x position x
+/// @param y position y
+/// @return 
 int gfx_get_pixel_at(int x, int y)
 {
 	XImage *image;
 	image = XGetImage(gfx_display, gfx_window, x, y, 1, 1, AllPlanes, XYPixmap);
 	int pixel = XGetPixel(image, 0, 0);
+	XDestroyImage(image);
 	return pixel;
 }
 /*********************************
