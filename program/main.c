@@ -7,7 +7,7 @@
 #include <math.h>
 #include <time.h>
 
-#define SCREEN_WIDTH 1620
+#define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
 #define NUMBER_OF_MODIFIERS 18
 
@@ -18,7 +18,7 @@
  * Clicker game with gfx library
  */
 
-#define COOKIE_SIZE 200
+#define COOKIE_SIZE 250
 #define PRICE_MULTIPLIER 1.15
 
 struct modifier
@@ -54,7 +54,7 @@ void prepare_to_write(char *result, long double value)
     }
     else if (value >= 1000000)
     {
-        value_double = value / 100000.0;
+        value_double = value / 1000000.0;
         sprintf(result, ":%.1f%c", value_double, 'm');
     }
     else if (value >= 1000)
@@ -94,27 +94,27 @@ int main()
     modifiers[0].level = 0;
     modifiers[0].cost = 100;
     modifiers[0].ops = 1;
-    strcpy(modifiers[0].name, "apprentice");
+    strcpy(modifiers[0].name, "gestion de la nature");
     // Freelancer
     modifiers[1].level = 0;
     modifiers[1].cost = 1100;
     modifiers[1].ops = 8;
-    strcpy(modifiers[1].name, "freelancer");
+    strcpy(modifiers[1].name, "agronomie");
     // Dev frontend
     modifiers[2].level = 0;
     modifiers[2].cost = 12000;
     modifiers[2].ops = 47;
-    strcpy(modifiers[2].name, "dev frontend");
+    strcpy(modifiers[2].name, "genie civil");
     // Dev backend
     modifiers[3].level = 0;
     modifiers[3].cost = 130000;
     modifiers[3].ops = 260;
-    strcpy(modifiers[3].name, "dev backend");
+    strcpy(modifiers[3].name, "architecture paysage");
     // Dev fullstack
     modifiers[4].level = 0;
     modifiers[4].cost = 1400000;
     modifiers[4].ops = 1400;
-    strcpy(modifiers[4].name, "dev fullstack");
+    strcpy(modifiers[4].name, "technique du batiment");
     // Mobile Developer
     modifiers[5].level = 0;
     modifiers[5].cost = 20000000;
@@ -124,57 +124,57 @@ int main()
     modifiers[6].level = 0;
     modifiers[6].cost = 330000000;
     modifiers[6].ops = 44000;
-    strcpy(modifiers[6].name, "application dev");
+    strcpy(modifiers[6].name, "genie mecanique");
     // DevOps Developer
     modifiers[7].level = 0;
     modifiers[7].cost = 5100000000;
     modifiers[7].ops = 260000;
-    strcpy(modifiers[7].name, "devops dev");
+    strcpy(modifiers[7].name, "architecture");
     // Software Developer
     modifiers[8].level = 0;
     modifiers[8].cost = 75000000000;
     modifiers[8].ops = 1600000;
-    strcpy(modifiers[8].name, "software dev");
+    strcpy(modifiers[8].name, "microtechnique");
     // Video Game Developer
     modifiers[9].level = 0;
     modifiers[9].cost = 1000000000000;
     modifiers[9].ops = 10000000;
-    strcpy(modifiers[9].name, "video game dev");
+    strcpy(modifiers[9].name, "informatique");
     // Graphic Developer
     modifiers[10].level = 0;
     modifiers[10].cost = 14000000000000;
     modifiers[10].ops = 65000000;
-    strcpy(modifiers[10].name, "graphic dev");
+    strcpy(modifiers[10].name, "life science");
     // Security Developer
     modifiers[11].level = 0;
     modifiers[11].cost = 170000000000000;
     modifiers[11].ops = 430000000;
-    strcpy(modifiers[11].name, "security dev");
+    strcpy(modifiers[11].name, "developpement territorial");
     // Data Scientist
     modifiers[12].level = 0;
     modifiers[12].cost = 2100000000000000;
     modifiers[12].ops = 2900000000;
-    strcpy(modifiers[12].name, "data scientist");
+    strcpy(modifiers[12].name, "engineering");
     // Blockchain Developer
     modifiers[13].level = 0;
     modifiers[13].cost = 26000000000000000;
     modifiers[13].ops = 21000000000;
-    strcpy(modifiers[13].name, "blockchain dev");
+    strcpy(modifiers[13].name, "albuchef");
     // Language Developer
     modifiers[14].level = 0;
     modifiers[14].cost = 310000000000000000;
     modifiers[14].ops = 150000000000;
-    strcpy(modifiers[14].name, "language dev");
+    strcpy(modifiers[14].name, "malaspinas");
     // AI Developer
     modifiers[15].level = 0;
     modifiers[15].cost = 7100000000000000000;
     modifiers[15].ops = 1100000000000;
-    strcpy(modifiers[15].name, "ai dev");
+    strcpy(modifiers[15].name, "malabuchef");
     // AI
     modifiers[16].level = 0;
     modifiers[16].cost = 120000000000000000000;
     modifiers[16].ops = 8300000000000;
-    strcpy(modifiers[16].name, "ai");
+    strcpy(modifiers[16].name, "github copilot");
 
     //* Initialize
     // Read the save file
@@ -189,6 +189,7 @@ int main()
         fclose(file);
     }
     ///
+    click_multiplier_cost *= pow(PRICE_MULTIPLIER, click_multiplier);
     for (int i = 0; i < NUMBER_OF_MODIFIERS; i++)
     {
         modifiers[i].cost *= pow(PRICE_MULTIPLIER, modifiers[i].level);
@@ -342,7 +343,6 @@ int main()
         char buffer[100];
         char buffer_bis[100];
         //* Interface
-        // The ore
         // The cookie
         gfx_full_circle(SCREEN_WIDTH / 4 - 20, SCREEN_HEIGHT / 2, cookie_size, MAKE_COLOR(242, 204, 157));
         // Draw the chocolate chips
@@ -351,16 +351,17 @@ int main()
         gfx_full_circle(SCREEN_WIDTH / 4 - 20 + cookie_size / 5, SCREEN_HEIGHT / 2 + cookie_size / 2, cookie_size / 5, MAKE_COLOR(113, 56, 18));
         gfx_full_circle(SCREEN_WIDTH / 4 - 20 - cookie_size / 2.5, SCREEN_HEIGHT / 2 + cookie_size / 3.33, cookie_size / 6.66, MAKE_COLOR(113, 56, 18));
         gfx_full_circle(SCREEN_WIDTH / 4 - 20 + cookie_size / 2, SCREEN_HEIGHT / 2 - cookie_size / 2.5, cookie_size / 6.66, MAKE_COLOR(113, 56, 18));
+
         // The modifiers
         gfx_color(215, 218, 222);
-        gfx_fillrect(SCREEN_WIDTH / 2 - 20, 20  - marging_top, SCREEN_WIDTH - 140, 100 - marging_top);
-        gfx_fillrect(SCREEN_WIDTH / 2 - 20, 120  - marging_top, SCREEN_WIDTH - 140, 200 - marging_top);
+        gfx_fillrect(SCREEN_WIDTH / 2 - 20, 20  - marging_top, SCREEN_WIDTH / 2 + 750, 100 - marging_top);
+        gfx_fillrect(SCREEN_WIDTH / 2 - 20, 120  - marging_top, SCREEN_WIDTH / 2 + 750, 200 - marging_top);
         for (int i = 1; i <= level; i++)
         {
-            gfx_fillrect(SCREEN_WIDTH / 2 - 20, 120 + i * 100  - marging_top, SCREEN_WIDTH - 140, 200 + i * 100 - marging_top);
+            gfx_fillrect(SCREEN_WIDTH / 2 - 20, 120 + i * 100  - marging_top, SCREEN_WIDTH / 2 + 750, 200 + i * 100 - marging_top);
         }
         gfx_color(237, 241, 245);
-        gfx_fillrect(SCREEN_WIDTH / 2 - 20, 220 + level * 100  - marging_top, SCREEN_WIDTH - 140, 300 + level * 100 - marging_top);
+        gfx_fillrect(SCREEN_WIDTH / 2 - 20, 220 + level * 100  - marging_top, SCREEN_WIDTH / 2 + 750, 300 + level * 100 - marging_top);
 
         gfx_color(0, 0, 0);
         // Click multiplicator
@@ -381,12 +382,12 @@ int main()
         strcpy(buffer_bis, "cost");
         prepare_to_write(buffer, click_multiplier_cost);
         strcat(buffer_bis, buffer);
-        gfx_drawPixelString(SCREEN_WIDTH - 310, 35 - marging_top, buffer_bis, 3);
+        gfx_drawPixelString(SCREEN_WIDTH/2 + 580, 35 - marging_top, buffer_bis, 3);
 
         strcpy(buffer_bis, "cpc");
         prepare_to_write(buffer, click_multiplier);
         strcat(buffer_bis, buffer);
-        gfx_drawPixelString(SCREEN_WIDTH - 293, 70 - marging_top, buffer_bis, 3);
+        gfx_drawPixelString(SCREEN_WIDTH/2 + 580, 70 - marging_top, buffer_bis, 3);
 
         /// Modifiers
         for (int i = 0; i < level + 1; i++)
@@ -407,12 +408,12 @@ int main()
             strcpy(buffer_bis, "cost");
             prepare_to_write(buffer, modifiers[i].cost);
             strcat(buffer_bis, buffer);
-            gfx_drawPixelString(SCREEN_WIDTH - 310, 135 + i * 100 - marging_top, buffer_bis, 3);
+            gfx_drawPixelString(SCREEN_WIDTH/2 + 580, 135 + i * 100 - marging_top, buffer_bis, 3);
 
             strcpy(buffer_bis, "cps");
             prepare_to_write(buffer, modifiers[i].ops);
             strcat(buffer_bis, buffer);
-            gfx_drawPixelString(SCREEN_WIDTH - 293, 170 + i * 100 - marging_top, buffer_bis, 3);
+            gfx_drawPixelString(SCREEN_WIDTH/2 + 580, 170 + i * 100 - marging_top, buffer_bis, 3);
         }
         if (level < 15)
         {
